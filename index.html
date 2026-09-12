@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FitQuest RPG</title>
+<meta name="theme-color" content="#0d1020">
+<meta name="description" content="Turn your movement into power.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FitQuest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="install-banner" id="installBanner">📲 Tap to install FitQuest as an app</div>
+
+<!-- AUTH SCREEN -->
+<div class="auth-wrap" id="authScreen">
+  <div class="logo" style="text-align:center;margin-bottom:20px">⚔️ FitQuest<span>Turn your movement into power.</span></div>
+  <div class="auth-card">
+    <div id="loginForm">
+      <h2 style="margin-top:0">Log in</h2>
+      <div class="field"><label>Username or email</label><input id="loginIdentifier" autocomplete="username"></div>
+      <div class="field"><label>Password</label><input id="loginPassword" type="password" autocomplete="current-password"></div>
+      <div class="error" id="loginError"></div>
+      <button style="width:100%" onclick="handleLogin()">Log in</button>
+      <div class="auth-toggle">New here? <a onclick="showRegister()">Create an account</a></div>
+    </div>
+    <div id="registerForm" style="display:none">
+      <h2 style="margin-top:0">Create your hero</h2>
+      <div class="field"><label>Username</label><input id="regUsername" autocomplete="username"></div>
+      <div class="field"><label>Email</label><input id="regEmail" type="email" autocomplete="email"></div>
+      <div class="field"><label>Password (min 8 characters)</label><input id="regPassword" type="password" autocomplete="new-password"></div>
+      <div class="error" id="registerError"></div>
+      <button style="width:100%" onclick="handleRegister()">Create account</button>
+      <div class="auth-toggle">Already playing? <a onclick="showLogin()">Log in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- GAME SCREEN -->
+<div class="app" id="gameScreen" style="display:none">
+<header>
+  <div class="logo">⚔️ FitQuest <span>Turn your movement into power.</span></div>
+  <div class="stats">
+    <div class="pill">🪙 <span id="points">0</span></div>
+    <div class="pill">🔥 <span id="streak">0</span></div>
+    <button class="alt" onclick="handleLogout()">Log out</button>
+  </div>
+</header>
+
+<section class="hero">
+<div><div class="tag">THE SHADOW KING • WORLD BOSS</div><h1>Rookie → Hero</h1>
+<p class="muted">Complete real-world missions to unlock powers, upgrade your avatar and prepare for the weekly boss.</p>
+<div class="xp"><div id="xpbar" style="width:0%"></div></div>
+<div><b id="level">Level 1</b> • <span id="xp">0/100 XP</span></div>
+<button onclick="openModal('quest')">🎯 Start a Quest</button>
+<button class="alt" onclick="spin()">🎡 Spin the Wheel</button>
+</div>
+<div class="avatar" id="avatar">🧙‍♀️</div>
+</section>
+
+<div class="grid">
+<section class="card"><h2>📋 Today's Missions</h2>
+<div class="task"><span>🚶 Walk 2,000 steps</span><button onclick="completeTask('walk')">+10</button></div>
+<div class="task"><span>🧘 5-minute stretch</span><button onclick="completeTask('stretch')">+8</button></div>
+<div class="task"><span>🏃 Extra challenge <span class="tag">1/day</span></span><button onclick="completeTask('extra')">+5</button></div>
+</section>
+
+<section class="card"><h2>⚡ Powers</h2>
+<div id="powersList"></div>
+<button onclick="upgrade()">⬆️ Upgrade • 15 🪙</button>
+</section>
+
+<section class="card"><h2>👹 Weekly Finale <span class="tag">shared by everyone</span></h2>
+<p>Shadow King HP: <b id="boss">100</b>%</p>
+<div class="xp"><div id="bossbar" style="width:100%"></div></div>
+<p class="muted">Save points or spend them on upgrades. Your squad can join the raid.</p>
+<button onclick="battle()">⚔️ Attack Boss • 10 🪙</button>
+<button class="alt" onclick="teamBattle()">👥 Squad Raid</button>
+</section>
+
+<section class="card"><h2>🧟 Zombie Chase</h2><p class="muted">Run 1 km before the timer reaches zero. Collect an artifact for protection.</p>
+<button onclick="zombie()">🏃 Start Chase</button><span id="zstatus" class="tag">Ready</span>
+</section>
+
+<section class="card"><h2>🌍 Your World</h2><p>🌱 Campus <b>✓</b></p><p>🌲 Mystery Forest <b>🔒 40 XP</b></p><p>🏔️ Dragon Peaks <b>🔒 Level 8</b></p><button onclick="openModal('world')">Explore</button></section>
+
+<section class="card"><h2>📜 Activity Log</h2><div class="log" id="log"></div></section>
+</div>
+</div>
+
+<div class="nav" id="nav" style="display:none">
+<button class="active">🏠 Home</button>
+<button onclick="openModal('squad')">👥 Squad</button>
+<button onclick="openModal('leaderboard')">🏆 Leaderboard</button>
+</div>
+
+<div class="modal" id="modal"><div>
+  <h2 id="mtitle"></h2>
+  <div id="mbody"></div>
+  <button class="alt" onclick="closeModal()">Close</button>
+</div></div>
+
+<!-- Set window.FITQUEST_API_URL in config.js when this frontend is hosted
+     separately from the Node/Express backend (for example on GitHub Pages). -->
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body></html>
